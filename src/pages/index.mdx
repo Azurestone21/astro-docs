@@ -1,0 +1,54 @@
+---
+
+---
+
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { Code } from 'astro-expressive-code/components';
+
+<Layout>
+	{/* 全屏英雄区域 */}
+	<section class="hero">
+		<h1>欢迎使用 Astro</h1>
+		<p>一个现代化的静态站点生成器，让你轻松构建高性能网站</p>
+		<div style="display: flex; gap: 1rem; margin-top: 2rem;">
+			<a href="/docs" class="btn">查看文档</a>
+			<a href="https://docs.astro.build" target="_blank" class="btn">官方文档</a>
+		</div>
+	</section>
+	
+	{/* 特性展示区域 */}
+	<section class="content-section">
+		<h2 class="section-title">Astro 特性</h2>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+			<Card title="高性能" description="Astro 采用静态站点生成技术，加载速度极快，为用户提供流畅的浏览体验。">
+			</Card>
+			<Card title="组件化开发" description="支持多种框架组件，包括 React、Vue、Svelte 等，让你灵活选择开发方式。">
+			</Card>
+			<Card title="易于使用" description="简洁的语法和直观的项目结构，让你快速上手，专注于内容创作。">
+			</Card>
+			<Card title="SEO 友好" description="静态生成的页面有利于搜索引擎索引，提高网站的可发现性。">
+			</Card>
+			<Card title="响应式设计" description="内置响应式支持，确保你的网站在各种设备上都能完美显示。">
+			</Card>
+			<Card title="主题切换" description="支持明暗主题切换，为用户提供舒适的浏览体验。">
+			</Card>
+		</div>
+	</section>
+	
+	{/* 开始使用区域 */}
+	<section class="content-section" style="text-align: center;">
+		<h2 class="section-title">开始使用</h2>
+		<p style="max-width: 600px; margin: 0 auto 2rem;">只需几行命令，即可创建你的第一个 Astro 项目</p>
+		<div style="text-align: left; max-width: 600px; margin: 0 auto;">
+			<Code 
+				lang="bash" 
+				code={`
+npm create astro@latest my-project
+cd my-project
+npm run dev
+			`} 
+			/>
+		</div>
+	</section>
+</Layout>

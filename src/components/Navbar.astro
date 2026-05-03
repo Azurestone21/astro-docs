@@ -1,0 +1,113 @@
+---
+---
+
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="navbar-logo">Astro</a>
+
+    <div class="navbar-links">
+      <a href="/docs" class="navbar-link">文档</a>
+
+      <button
+        id="theme-toggle"
+        class="navbar-theme-toggle"
+        type="button"
+        aria-label="切换主题"
+        title="切换主题"
+        onclick="window.__toggleTheme?.()"
+      >
+        <span id="theme-icon" class="navbar-theme-icon">&#9789;</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .navbar-link {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  .navbar-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    background: none;
+    border: 1px solid var(--nav-border);
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--text-color);
+  }
+
+  .navbar-theme-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (typeof window === 'undefined') return;
+
+    const SUN_ICON = String.fromCharCode(9788);
+    const MOON_ICON = String.fromCharCode(9789);
+    const root = document.documentElement;
+
+    const syncThemeIcon = (theme, themeIcon) => {
+      if (!themeIcon) return;
+      themeIcon.textContent = theme === 'dark' ? SUN_ICON : MOON_ICON;
+    };
+
+    const getPreferredTheme = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
+    const applyTheme = (theme) => {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    };
+
+    const syncThemeUI = () => {
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      syncThemeIcon(currentTheme, themeIcon);
+    };
+
+    window.__toggleTheme = () => {
+      const currentTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      syncThemeUI();
+    };
+
+    const initTheme = () => {
+      applyTheme(getPreferredTheme());
+      syncThemeUI();
+    };
+
+    initTheme();
+    document.addEventListener('astro:page-load', initTheme);
+    document.addEventListener('DOMContentLoaded', initTheme);
+  })();
+</script>
