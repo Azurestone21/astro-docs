@@ -57,5 +57,3 @@ astro-demo/
 ├── package.json                 # 依赖和脚本
 └── tsconfig.json                # TypeScript 配置
 ```
-
-                      |
